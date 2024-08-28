@@ -42,9 +42,6 @@ void parse_command(const std::string& line, std::vector<std::string>& args, bool
             {
             args.push_back(token);
             }
-
-            // Move stream past the closing quote
-            stream >> std::ws;
         } 
         
         // Check for unquoted tokens
@@ -55,9 +52,11 @@ void parse_command(const std::string& line, std::vector<std::string>& args, bool
             {
                 args.push_back(token);
             }
-            // Move stream past the token
-            stream >> std::ws;
+
         }
+
+        // Move stream past the token
+        stream >> std::ws;
     }
 }
 
@@ -113,11 +112,11 @@ bool change_directory(const std::string& path)
 {
     if (chdir(path.c_str()) != 0) 
     {
-        return 0;
+        return false;
     }
     else
     {
-        return 1;
+        return true;
     }
 }
 
